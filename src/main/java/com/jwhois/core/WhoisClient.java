@@ -177,6 +177,25 @@ public class WhoisClient {
 		}
 	}
 
+    private void processSocketResponse(List<String> lines){
+        List<String> filteredLines = new ArrayList<String>();
+        boolean hasLineStart = (null == pnStart) ? false : true;
+			boolean hasLineEnd = (null == pnEnd) ? false : true;
+			boolean canRead = hasLineStart ? false : true;
+            for(String line: lines) {
+				if (skipLine( line ))
+					continue;
+				if (!canRead && hasLineStart && pnStart.matcher( line ).find())
+					canRead = true;
+				if (canRead && hasLineEnd && pnEnd.matcher( line ).find())
+					break;
+				if (canRead)
+					filteredLines.add( readingLine( line ) );
+			}
+       // lines.clear();
+        lines.retainAll(filteredLines);
+    }
+
 	private void socketQuery(List<String> list) {
 		PrintWriter pw = null;
 		BufferedReader br = null;
@@ -192,21 +211,10 @@ public class WhoisClient {
 			pw = new PrintWriter( sock.getOutputStream() );
 			pw.print( queryStr + "\r\n" );
 			pw.flush();
-
 			br = new BufferedReader( new InputStreamReader( sock.getInputStream(), "UTF-8" ) );
 			String line = null;
-			boolean hasLineStart = (null == pnStart) ? false : true;
-			boolean hasLineEnd = (null == pnEnd) ? false : true;
-			boolean canRead = hasLineStart ? false : true;
 			while ((line = br.readLine()) != null) {
-				if (skipLine( line ))
-					continue;
-				if (!canRead && hasLineStart && pnStart.matcher( line ).find())
-					canRead = true;
-				if (canRead && hasLineEnd && pnEnd.matcher( line ).find())
-					break;
-				if (canRead)
-					list.add( readingLine( line ) );
+                list.add(line);
 			}
 		}
 		catch (UnknownHostException e) {
@@ -234,7 +242,7 @@ public class WhoisClient {
 				// do nothing
 			}
 		}
-
+        processSocketResponse(list);
 	}
 
 	/**
