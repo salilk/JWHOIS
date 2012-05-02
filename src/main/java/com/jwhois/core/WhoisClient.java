@@ -196,8 +196,8 @@ public class WhoisClient {
         lines.retainAll(filteredLines);
     }
 
-	private void socketQuery(List<String> list) {
-		PrintWriter pw = null;
+    private void doSocketQuery(List<String> list){
+        PrintWriter pw = null;
 		BufferedReader br = null;
 		Socket sock = null;
 
@@ -242,6 +242,10 @@ public class WhoisClient {
 				// do nothing
 			}
 		}
+    }
+
+	private void socketQuery(List<String> list) {
+        doSocketQuery(list);
         processSocketResponse(list);
 	}
 
