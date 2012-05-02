@@ -196,7 +196,7 @@ public class WhoisClient {
         lines.retainAll(filteredLines);
     }
 
-    private void doSocketQuery(List<String> list){
+    protected void doSocketQuery(List<String> list){
         PrintWriter pw = null;
 		BufferedReader br = null;
 		Socket sock = null;
