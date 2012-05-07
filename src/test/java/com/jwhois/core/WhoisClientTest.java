@@ -24,7 +24,8 @@ public class WhoisClientTest extends TestCase {
 
     //TODO: need to mock the responses (hitting internet)
     public void testDomLookup() throws Exception {
-        //String[] names = new String[]{"finddesire.com", "fullcontact.com", "yahoo.com", "google.com"};
+//        String[] names = new String[]{"fullcontact.com", "yahoo.com", "google.com", "facebook.com", "intelligrape.com", "findesire.com"};
+
         String[] names = new String[]{"finddesire.com"};
         for (String name : names) {
             System.out.println("============ " + name + " ====================");

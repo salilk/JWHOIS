@@ -1,5 +1,8 @@
 package com.jwhois.core;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -8,6 +11,9 @@ import javax.xml.parsers.SAXParserFactory;
 public final class XMLHelper {
 	private static Map<String, Map<String, String>>	servers		= null;
 	private static Map<String, Map<String, Object>>	translates	= null;
+
+    private static final String preferredServers = "whois/preferred-servers.xml";
+    private static final String preferredTranslates = "whois/preferred-translates.xml";
 
 	public static void preloadXML() {
 		buildServers();
@@ -23,6 +29,15 @@ public final class XMLHelper {
 		translates = null;
 	}
 
+    private static InputStream getInputStream(String path){
+        try{
+            return ClassLoader.getSystemResourceAsStream(path);
+        }catch(Exception e){
+            Utility.logWarn( "System resource not loaded: " + path, e );
+        }
+        return null;
+    }
+
 	private static void buildServers() {
 		if (servers != null)
 			return;
@@ -31,7 +46,15 @@ public final class XMLHelper {
 		try {
 			SAXParser parser = factory.newSAXParser();
 			ServerHandler handler = new ServerHandler();
-			parser.parse( Utility.getServersDB(), handler );
+            // check if xml file is in classpath
+            InputStream is = getInputStream(preferredServers);
+            if (is != null) {
+                Utility.logInfo("building servers from preferred xml file");
+                parser.parse(is, handler);
+            } else {
+                Utility.logInfo("building servers from default xml file");
+                parser.parse(Utility.getServersDB(), handler);
+            }
 			servers = handler.getMap();
 		}
 		catch (Exception e) {
@@ -47,7 +70,16 @@ public final class XMLHelper {
 		try {
 			SAXParser parser = factory.newSAXParser();
 			TranslateHandler handler = new TranslateHandler();
-			parser.parse( Utility.getTranslatesDB(), handler );
+            // check if xml file is in classpath
+            InputStream is = getInputStream(preferredTranslates);
+            if(is != null){
+                Utility.logInfo("building Translates from preferred xml file");
+                parser.parse(is, handler );
+            }else{
+                Utility.logInfo("building Translates from default xml file");
+                parser.parse( Utility.getTranslatesDB(), handler );
+            }
+
 			translates = handler.getMap();
 		}
 		catch (Exception e) {
