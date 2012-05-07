@@ -12,8 +12,8 @@ public final class XMLHelper {
 	private static Map<String, Map<String, String>>	servers		= null;
 	private static Map<String, Map<String, Object>>	translates	= null;
 
-    private static final String preferredServers = "whois/preferred-servers.xml";
-    private static final String preferredTranslates = "whois/preferred-translates.xml";
+    private static final String preferredServers = "/whois/preferred-servers.xml";
+    private static final String preferredTranslates = "/whois/preferred-translates.xml";
 
 	public static void preloadXML() {
 		buildServers();
@@ -31,9 +31,9 @@ public final class XMLHelper {
 
     private static InputStream getInputStream(String path){
         try{
-            return ClassLoader.getSystemResourceAsStream(path);
+            return XMLHelper.class.getResourceAsStream(path);
         }catch(Exception e){
-            Utility.logWarn( "System resource not loaded: " + path, e );
+            Utility.logWarn( "classpath resource not loaded: " + path, e );
         }
         return null;
     }
