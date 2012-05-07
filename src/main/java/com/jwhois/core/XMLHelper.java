@@ -1,8 +1,9 @@
 package com.jwhois.core;
 
-import java.io.File;
-import java.io.FileInputStream;
+import com.vladium.utils.ResourceLoader;
+
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Map;
 
 import javax.xml.parsers.SAXParser;
@@ -12,8 +13,13 @@ public final class XMLHelper {
 	private static Map<String, Map<String, String>>	servers		= null;
 	private static Map<String, Map<String, Object>>	translates	= null;
 
-    private static final String preferredServers = "/whois/preferred-servers.xml";
-    private static final String preferredTranslates = "/whois/preferred-translates.xml";
+    private static final String preferredServers = "whois/preferred-servers.xml";
+    private static final String preferredTranslates = "whois/preferred-translates.xml";
+
+    public static void reloadXMLResources(){
+        clean();
+        preloadXML();
+    }
 
 	public static void preloadXML() {
 		buildServers();
@@ -29,14 +35,33 @@ public final class XMLHelper {
 		translates = null;
 	}
 
-    private static InputStream getInputStream(String path){
-        try{
+    private static InputStream getInputStream(String path) {
+        try {
+            URL url = ResourceLoader.getResource(path);
+            System.out.println("resource URL: " + url);
+            if(url != null){
+                return ResourceLoader.getResourceAsStream(path);
+            }
             return XMLHelper.class.getResourceAsStream(path);
-        }catch(Exception e){
-            Utility.logWarn( "classpath resource not loaded: " + path, e );
+        } catch (Exception e) {
+            Utility.logWarn("classpath resource not loaded: " + path, e);
         }
         return null;
     }
+
+    /*private static InputStream getInputStream(String path) {
+        try {
+            URL url = XMLHelper.class.getClassLoader().getResource(path);
+            System.out.println("resource URL: " + url);
+            if(url != null){
+                return XMLHelper.class.getClassLoader().getResourceAsStream(path);
+            }
+        } catch (Exception e) {
+            Utility.logWarn("classpath resource not loaded: " + path, e);
+        }
+        return null;
+    }*/
+
 
 	private static void buildServers() {
 		if (servers != null)
