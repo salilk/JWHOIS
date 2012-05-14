@@ -126,9 +126,10 @@ public class WhoisEngine extends WhoisClient {
 			servername = hostname;
 
 			// Set if has LineStart or LineEnd pattern
-			setLineStartFilter( XMLHelper.getTranslateAttr( "LineStart", servername ) );
-			setLineEndFilter( XMLHelper.getTranslateAttr( "LineEnd", servername ) );
-			setLineCatchFilter( XMLHelper.getTranslateAttr( "LineCatch", servername ) );
+            setLineFilter(servername);
+            if(!XMLHelper.hasTranslates(servername)){
+                setLineFilter(getDefaultServerName());
+            }
 
 			// Set the necessary fields
 			whoisMap.set( "regyinfo.type", "domain" );
@@ -170,9 +171,7 @@ public class WhoisEngine extends WhoisClient {
 				return whoisMap;
 
 			servername = hostname;
-			setLineStartFilter( XMLHelper.getTranslateAttr( "LineStart", servername ) );
-			setLineEndFilter( XMLHelper.getTranslateAttr( "LineEnd", servername ) );
-			setLineCatchFilter( XMLHelper.getTranslateAttr( "LineCatch", servername ) );
+			setLineFilter(servername);
 
 			rawdata = domLookup( domain, tld );
 			if (Utility.isEmpty( rawdata ))
@@ -200,6 +199,16 @@ public class WhoisEngine extends WhoisClient {
 
 		return whoisMap;
 	}
+
+    protected void setLineFilter(String servername){
+        setLineStartFilter( XMLHelper.getTranslateAttr( "LineStart", servername ) );
+        setLineEndFilter( XMLHelper.getTranslateAttr( "LineEnd", servername ) );
+        setLineCatchFilter( XMLHelper.getTranslateAttr( "LineCatch", servername ) );
+    }
+
+    protected String getDefaultServerName(){
+        return ("com" + DEFAULT_SERVER_DOMAIN);
+    }
 
 	// Options
 	/**

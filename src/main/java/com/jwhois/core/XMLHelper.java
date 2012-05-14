@@ -187,7 +187,7 @@ public final class XMLHelper {
 		return ret;
 	}
 
-	static String getTranslateAttr(String attrname, String key) {
+	public static String getTranslateAttr(String attrname, String key) {
 		String ret = "";
 		if (null == translates) {
 			buildTranslates();
@@ -202,6 +202,20 @@ public final class XMLHelper {
 		}
 		return ret;
 	}
+
+    public static boolean hasTranslates(String key){
+        if (null == translates) {
+            buildTranslates();
+        }
+        if (null != translates) {
+            key = key.toLowerCase();
+            Map<String, Object> map = translates.get( key );
+            if(map != null){
+                return true;
+            }
+        }
+        return false;
+    }
 
 	@SuppressWarnings("unchecked")
 	static Map<String, String> getTranslateMap(String mapname, String key) {
