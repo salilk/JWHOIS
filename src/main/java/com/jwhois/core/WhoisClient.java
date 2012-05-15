@@ -192,8 +192,9 @@ public class WhoisClient {
 				if (canRead)
 					filteredLines.add( readingLine( line ) );
 			}
-       // lines.clear();
-        lines.retainAll(filteredLines);
+        if(filteredLines.size() > 1){
+            lines.retainAll(filteredLines);
+        }
     }
 
     protected void doSocketQuery(List<String> list){
