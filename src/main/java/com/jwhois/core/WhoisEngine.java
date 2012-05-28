@@ -146,6 +146,7 @@ public class WhoisEngine extends WhoisClient {
 			}
 
 			whoisMap.set( "rawdata", rawdata );
+            whoisMap.set( "level1.rawdata", rawdata );
 
 			// Parse the map 1st.
 			whoisMap.parse( servername );
@@ -177,9 +178,9 @@ public class WhoisEngine extends WhoisClient {
 			if (Utility.isEmpty( rawdata ))
 				return whoisMap;
 
-			whoisMap.remove( "regrinfo.domain" );
-			whoisMap.remove( "regyinfo.whois" );
-			whoisMap.remove( "regyinfo.registrar" );
+            whoisMap.set( "level1.regrinfo.domain", whoisMap.remove( "regrinfo.domain" ) );
+            whoisMap.set( "level1.regyinfo.registrar", whoisMap.remove( "regyinfo" ) );
+            whoisMap.set( "level1.regyinfo.whois", whoisMap.remove( "regyinfo.whois" ) );
 			whoisMap.set( "rawdata", rawdata );
 
 			serverList.add( servername );
