@@ -179,7 +179,7 @@ public class WhoisEngine extends WhoisClient {
 				return whoisMap;
 
             whoisMap.set( "level1.regrinfo.domain", whoisMap.remove( "regrinfo.domain" ) );
-            whoisMap.set( "level1.regyinfo.registrar", whoisMap.remove( "regyinfo" ) );
+            whoisMap.set( "level1.regyinfo.registrar", whoisMap.remove( "regyinfo.registrar" ) );
             whoisMap.set( "level1.regyinfo.whois", whoisMap.remove( "regyinfo.whois" ) );
 			whoisMap.set( "rawdata", rawdata );
 
