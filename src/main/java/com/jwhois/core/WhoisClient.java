@@ -177,7 +177,7 @@ public class WhoisClient {
 		}
 	}
 
-    private void processSocketResponse(List<String> lines){
+    protected void processSocketResponse(List<String> lines){
         List<String> filteredLines = new ArrayList<String>();
         boolean hasLineStart = (null == pnStart) ? false : true;
 			boolean hasLineEnd = (null == pnEnd) ? false : true;
