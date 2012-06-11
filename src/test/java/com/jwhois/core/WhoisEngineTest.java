@@ -34,7 +34,7 @@ public class WhoisEngineTest extends TestCase {
     public void testResponseFilterForLevel1() throws Exception{
         WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
         engine.setLineFilter("com.whois-servers.net");
-        List<String> responseLines = getMockResponseLines("fullcontact.com");
+        List<String> responseLines = getMockResponseForLevel1("fullcontact.com");
         engine.processSocketResponse(responseLines);
         assertEquals(13, responseLines.size());
         assertTrue(responseLines.contains("Domain Name: FULLCONTACT.COM"));
@@ -49,7 +49,7 @@ public class WhoisEngineTest extends TestCase {
     public void testRawDataParserForLevel1() throws Exception{
         WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
         engine.setLineFilter("com.whois-servers.net");
-        List<String> rawData = getMockResponseLines("fullcontact.com");
+        List<String> rawData = getMockResponseForLevel1("fullcontact.com");
         engine.processSocketResponse(rawData);
         WhoisMap whoisMap = new WhoisMap();
         whoisMap.set( "rawdata", rawData );
@@ -67,9 +67,61 @@ public class WhoisEngineTest extends TestCase {
         assertEquals(5, ((List)whoisMap.get("regrinfo.domain.nserver")).size());
     }
 
-    private List<String> getMockResponseLines(String domain) throws IOException {
+    public void testResponseFilterForLevel2() throws Exception{
+        WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
+        engine.setLineFilter("whois.name.com");
+        List<String> responseLines = getMockResponseForLevel2("fullcontact.com");
+        engine.processSocketResponse(responseLines);
+        assertEquals(55, responseLines.size());
+        assertTrue(responseLines.contains("Domain Name:     fullcontact.com"));
+        assertTrue(responseLines.contains("Registrar:       Name.com LLC"));
+        assertTrue(responseLines.contains("Expiration Date: 2013-06-06 10:55:15"));
+        assertTrue(responseLines.contains("Creation Date:   2000-06-06 10:55:15"));
+        assertTrue(responseLines.contains("Name Servers:"));
+        assertTrue(responseLines.contains("REGISTRANT CONTACT INFO"));
+        assertTrue(responseLines.contains("ADMINISTRATIVE CONTACT INFO"));
+        assertTrue(responseLines.contains("TECHNICAL CONTACT INFO"));
+        assertTrue(responseLines.contains("BILLING CONTACT INFO"));
+    }
+
+    public void testRawDataParserForLevel2() throws Exception{
+        WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
+        engine.setLineFilter("whois.name.com");
+        List<String> rawData = getMockResponseForLevel2("fullcontact.com");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("whois.name.com");
+        Map infoMap = whoisMap.getMap();
+
+        assertTrue(infoMap.containsKey("rawdata"));
+        assertTrue(infoMap.containsKey("regyinfo"));
+        assertEquals(rawData, infoMap.get("rawdata"));
+        assertTrue((Boolean)whoisMap.get("regyinfo.hasrecord"));
+        assertEquals(2, ((Map)infoMap.get("regyinfo")).size());
+
+        assertEquals("2013-06-06 10:55:15", whoisMap.get("regrinfo.domain.expires"));
+        assertEquals("2000-06-06 10:55:15", whoisMap.get("regrinfo.domain.created"));
+        assertTrue(((List)whoisMap.get("regrinfo.domain.nserver")).contains("dns1.nettica.com"));
+
+        assertEquals("+1.3037369406", whoisMap.get("regrinfo.owner.phone"));
+        assertNotNull(whoisMap.get("regrinfo.owner.info"));
+        assertNotNull(whoisMap.get("regrinfo.admin.info"));
+        assertNotNull(whoisMap.get("regrinfo.tech.info"));
+        assertNotNull(whoisMap.get("regrinfo.bill.info"));
+    }
+
+    private List<String> getMockResponseForLevel1(String domain) throws IOException {
+        return getMockResponseLines("src/test/data/level1/"+domain+".txt");
+    }
+
+    private List<String> getMockResponseForLevel2(String domain) throws IOException {
+        return getMockResponseLines("src/test/data/level2/"+domain+".txt");
+    }
+
+    private List<String> getMockResponseLines(String filePath) throws IOException {
         List<String> responseLines = new ArrayList<String>();
-        File file = new File("src/test/data/level1/"+domain+".txt");
+        File file = new File(filePath);
         FileInputStream fis = new FileInputStream(file);
         BufferedReader br = new BufferedReader(new InputStreamReader(fis));
         String line;
