@@ -9,7 +9,8 @@ import junit.framework.TestCase;
  * Time: 3:02 PM
  * To change this template use File | Settings | File Templates.
  */
-public class WhoisClientTest extends TestCase {
+public class WhoisEngineTest extends TestCase {
+
     public void setUp() throws Exception {
         super.setUp();
     }
