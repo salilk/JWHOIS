@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +31,7 @@ public class WhoisEngineTest extends TestCase {
         //System.out.println("in LINE FILTER: ");
     }
 
-    public void testLineFilter() throws Exception{
+    public void testResponseFilterForLevel1() throws Exception{
         WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
         engine.setLineFilter("com.whois-servers.net");
         List<String> responseLines = getMockResponseLines("fullcontact.com");
@@ -43,6 +44,27 @@ public class WhoisEngineTest extends TestCase {
         assertTrue(responseLines.contains("Name Server: DNS1.NETTICA.COM"));
         assertTrue(responseLines.contains("Whois Server: whois.name.com"));
         assertTrue(responseLines.contains("Registrar: NAME.COM LLC"));
+    }
+
+    public void testRawDataParserForLevel1() throws Exception{
+        WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
+        engine.setLineFilter("com.whois-servers.net");
+        List<String> rawData = getMockResponseLines("fullcontact.com");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("com.whois-servers.net");
+        Map infoMap = whoisMap.getMap();
+        assertTrue(infoMap.containsKey("rawdata"));
+        assertEquals(rawData, infoMap.get("rawdata"));
+        assertTrue(infoMap.containsKey("regyinfo"));
+        assertEquals(4, ((Map)infoMap.get("regyinfo")).size());
+        assertTrue((Boolean)whoisMap.get("regyinfo.hasrecord"));
+        assertEquals("whois.name.com", whoisMap.get("regyinfo.whois"));
+        assertEquals("06-jun-2013", whoisMap.get("regrinfo.domain.expires"));
+        assertEquals("06-jun-2000", whoisMap.get("regrinfo.domain.created"));
+        assertEquals("05-oct-2011", whoisMap.get("regrinfo.domain.changed"));
+        assertEquals(5, ((List)whoisMap.get("regrinfo.domain.nserver")).size());
     }
 
     private List<String> getMockResponseLines(String domain) throws IOException {
