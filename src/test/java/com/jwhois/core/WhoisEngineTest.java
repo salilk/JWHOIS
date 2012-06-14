@@ -111,15 +111,15 @@ public class WhoisEngineTest extends TestCase {
         assertNotNull(whoisMap.get("regrinfo.bill.info"));
     }
 
-    private List<String> getMockResponseForLevel1(String domain) throws IOException {
+    protected static List<String> getMockResponseForLevel1(String domain) throws IOException {
         return getMockResponseLines("src/test/data/level1/"+domain+".txt");
     }
 
-    private List<String> getMockResponseForLevel2(String domain) throws IOException {
+    protected static List<String> getMockResponseForLevel2(String domain) throws IOException {
         return getMockResponseLines("src/test/data/level2/"+domain+".txt");
     }
 
-    private List<String> getMockResponseLines(String filePath) throws IOException {
+    protected static List<String> getMockResponseLines(String filePath) throws IOException {
         List<String> responseLines = new ArrayList<String>();
         File file = new File(filePath);
         FileInputStream fis = new FileInputStream(file);

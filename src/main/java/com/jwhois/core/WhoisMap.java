@@ -266,7 +266,7 @@ public class WhoisMap {
 	 *  k:v
 	 *  ...
 	 */
-	private Map<String, Object> parseA(List<String> rawdata, Map<String, String> contacts) {
+	protected Map<String, Object> parseA(List<String> rawdata, Map<String, String> contacts) {
 		WhoisMap rdMap = new WhoisMap();
 
 		List<String> cList = null;
@@ -335,7 +335,7 @@ public class WhoisMap {
 	 *  k:v
 	 *  ...
 	 */
-	private Map<String, Object> parseB(List<String> rawdata, Map<String, String> contacts, String[] blockHeads,
+	protected Map<String, Object> parseB(List<String> rawdata, Map<String, String> contacts, String[] blockHeads,
 			String[] contactHandles) {
 		WhoisMap rdMap = new WhoisMap();
 
@@ -398,7 +398,7 @@ public class WhoisMap {
 	 *  k ...... v
 	 *  ...
 	 */
-	private Map<String, Object> parseC(List<String> rawdata) {
+	protected Map<String, Object> parseC(List<String> rawdata) {
 		WhoisMap rdMap = new WhoisMap();
 		for (String line : rawdata) {
 			Matcher m = pnLineB.matcher( line );
