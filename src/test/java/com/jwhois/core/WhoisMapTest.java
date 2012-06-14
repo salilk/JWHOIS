@@ -146,4 +146,15 @@ public class WhoisMapTest extends TestCase {
         assertNotNull(whoisMap.get("regrinfo.owner"));
     }
 
+    public void testParsing_ONLINENIC_DOT_COM() throws Exception {
+        WhoisEngine engine = new WhoisEngine("onlinenic.com", false);
+        List<String> rawData = WhoisEngineTest.getMockResponseForLevel2("onlinenic.com");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("whois.onlinenic.com");
+        Map infoMap = whoisMap.getMap();
+        assertNotNull(infoMap);
+    }
+
 }

@@ -1,0 +1,74 @@
+The Data in OnlineNIC's WHOIS database is provided by OnlineNIC
+    for information purposes, and to assist persons in obtaining
+    information about or related to a domain name registration record.
+    OnlineNIC does not guarantee its accuracy. By starting a WHOIS
+    query, you agree that you will use this Data only for lawful
+    purposes and that, under no circumstances will you use this Data
+    to:
+    (1)allow, enable, or otherwise support the transmission of mass
+    unsolicited,commercial advertising or solicitations via e-mail(spam).
+    (2)enable high volume,automated, electronic processes that apply
+    to OnlineNIC Inc.(or its systems).
+
+    OnlineNIC reserves the right to modify these terms at any time.
+    By starting this query, you agree to abide by this policy.
+
+
+Registrant:
+	 Carrie  Arden carrie@onlinenic.com +1.5107698492 +1.5107698492
+	 OnlineNIC, Inc.
+	 909 Marina Village Pkwy #236
+	 Alameda,CA,United States 94501
+
+
+Domain Name:onlinenic.com
+Record last updated at 2012-03-13 03:00:15
+Record created on 8/26/1999
+Record expired on 08/26/2016
+
+
+Domain servers in listed order:
+	 ns1.onlinenic.net 	 ns5.onlinenic.net
+
+Administrator:
+	 name:(Carrie  Arden)
+	Email:(carrie@onlinenic.com) tel-- +1.5107698492
+	 fax:(+1.5107698492)
+	 OnlineNIC, Inc.
+	 909 Marina Village Pkwy #236
+	 Alameda
+	 CA,
+	 United States
+
+	 zipcode:94501
+
+Technical Contactor:
+	 name:(Carrie  Arden)
+	Email:(carrie@onlinenic.com) tel-- +1.5107698492
+	 fax:(+1.5107698492)
+	 OnlineNIC, Inc.
+	 909 Marina Village Pkwy #236
+	 Alameda
+	 CA,
+	 United States
+
+	 zipcode:94501
+
+Billing Contactor:
+	 name:(Carrie  Arden)
+	Email:(carrie@onlinenic.com) tel-- +1.5107698492
+	 fax:(+1.5107698492)
+	 OnlineNIC, Inc.
+	 909 Marina Village Pkwy #236
+	 Alameda
+	 CA,
+	 United States
+
+	 zipcode:94501
+
+
+Registration Service Provider:
+	name: OnlineNIC, Inc.
+	tel: +1.5107698492
+ 	fax: +1.5107698492
+ 	web:http://onlinenic.com

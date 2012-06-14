@@ -732,7 +732,7 @@
 			<Item><Key>Expires on..............</Key><Translate>regrinfo.domain.expires</Translate></Item>
 		</List>
 	</Translates>
-	<Translates id="whois.tucows.com" parser="A" lineend="^\s*The\sData\sin\sthe\sTucows">
+	<Translates id="whois.tucows.com" parser="A" lineend="^\s*The\sData\sin\sthe\sTucows" normalize="true">
 		<Contacts>
 			<Item><Key>Registrant</Key><Translate>regrinfo.owner</Translate></Item>
 			<Item><Key>Administrative Contact</Key><Translate>regrinfo.admin</Translate></Item>
@@ -741,7 +741,7 @@
 			<Item><Key>Zone Contact</Key><Translate>regrinfo.zone</Translate></Item>
 			<Item><Key>Abuse Contact</Key><Translate>regrinfo.abuse</Translate></Item>
 			<Item><Key>Network Contact</Key><Translate>regrinfo.network</Translate></Item>
-			<Item><Key>Domain status</Key><Translate>regrinfo.domain.status</Translate></Item>
+			<Item><Key>Domain status</Key><Translate>break</Translate></Item>
 			<Item><Key>Domain servers in listed order:</Key><Translate>regrinfo.domain.nserver</Translate></Item>
 			<Item><Key>Domain Name</Key><Translate>break</Translate></Item>
             <Item><Key>Registration Service Provider</Key><Translate>break</Translate></Item>
@@ -1277,7 +1277,7 @@
 			<Item><Key>Record expires on</Key><Translate>regrinfo.domain.expires</Translate></Item>
 		</List>
 	</Translates>
-	<Translates id="whois.onlinenic.com" parser="A" linestart="^\s*Registrant:">
+	<Translates id="whois.onlinenic.com" parser="A" linestart="^\s*Registrant:" normalize="true">
 		<Contacts>
 			<Item><Key>Registrant:</Key><Translate>regrinfo.owner</Translate></Item>
 			<Item><Key>Administrator:</Key><Translate>regrinfo.admin</Translate></Item>
@@ -1287,7 +1287,8 @@
 			<Item><Key>Abuse Contactor:</Key><Translate>regrinfo.abuse</Translate></Item>
 			<Item><Key>Network Contactor:</Key><Translate>regrinfo.network</Translate></Item>
 			<Item><Key>Domain servers in listed order:</Key><Translate>regrinfo.domain.nserver</Translate></Item>
-			<Item><Key>Domain Name:</Key><Translate>break</Translate></Item>
+			<Item><Key>Domain Name</Key><Translate>break</Translate></Item>
+            <Item><Key>Record created on</Key><Translate>break</Translate></Item>
 		</Contacts>
 		<ContactInfo>
 			<Item><Key>Name</Key><Translate>name</Translate></Item>
