@@ -13,14 +13,14 @@ public class WhoisMap {
 
 	/*
 	 *  == The WHOIS Map ==
-	 * 
+	 *
 	 *  + regyinfo
 	 *  	- hasrecord
 	 *  	- whois
 	 *  	- whoisdetail
 	 *  	- registrar
 	 *  	- referrer
-	 *  
+	 *
 	 *  + regrinfo
 	 *  	+ domain
 	 *  		- name
@@ -37,13 +37,13 @@ public class WhoisMap {
 	 *  	+ zone
 	 *  	+ abuse
 	 *  	+ network
-	 *  
+	 *
 	 *  - rawdata
 	 */
 
 	// line type B : key = group(1); value = group(3)
-	//private final static String	REGEX_LINEB	= "^\\s*([\u0000-\u0039\u003B-\u007E]+)\\s*(:|[\\.]{3,}|\\s{5,})\\s*([^\\/][^\\/].*)\\s*$";
-    private final static String	REGEX_LINEB	= "^\\s*([\u0000-\u0039\u003B-\u007E]+)\\s*(:|[\\.]{3,}|\\s{1,})\\s*([^\\/][^\\/].*)\\s*$";
+	private final static String	REGEX_LINEB	= "^\\s*([\u0000-\u0039\u003B-\u007E]+)\\s*(:|[\\.]{3,}|\\s{5,})\\s*([^\\/][^\\/].*)\\s*$";
+//    private final static String	REGEX_LINEB	= "^\\s*([\u0000-\u0039\u003B-\u007E]+)\\s*(:|[\\.]{3,}|\\s{1,})\\s*([^\\/][^\\/].*)\\s*$";
 
 	private static Pattern		pnLineB;
 
@@ -62,6 +62,24 @@ public class WhoisMap {
 		this.whoisMap = whoisMap;
 	}
 
+    List<String> normalizeRawDta(List<String> rawData, Map<String, String> contacts) {
+        if(Utility.isEmpty(contacts)){
+            return rawData;
+        }
+
+        List<String> output = new ArrayList<String>();
+        for (String line : rawData) {
+            String test = line.trim().toLowerCase();
+            for (String key : contacts.keySet()) {
+                if (test.startsWith(key)) {
+                    test = test.replaceAll(key, (key + "     "));
+                }
+            }
+            output.add(test);
+        }
+        return output;
+    }
+
 	@SuppressWarnings("unchecked")
 	void parse(String server) {
 		if (null == whoisMap || Utility.isEmpty( server )) {
@@ -79,6 +97,13 @@ public class WhoisMap {
 		Map<String, String> translates = XMLHelper.getTranslateMap( "List", server );
 		Map<String, String> contacts = XMLHelper.getTranslateMap( "Contacts", server );
 		Map<String, String> contactInfo = XMLHelper.getTranslateMap( "ContactInfo", server );
+
+        String normalizeAttr = XMLHelper.getTranslateAttr( "normalize", server );
+        if(normalizeAttr != null && normalizeAttr.equalsIgnoreCase("true")){
+            rawdata = normalizeRawDta(rawdata,translates);
+            rawdata = normalizeRawDta(rawdata,contacts);
+            rawdata = normalizeRawDta(rawdata,contactInfo);
+        }
 
 		String parser = XMLHelper.getTranslateAttr( "Parser", server );
 		if (Utility.isEmpty( parser ))
@@ -253,7 +278,7 @@ public class WhoisMap {
 
 	/*
 	 *  == WHOIS RAWDATA TYPE A ==
-	 *  
+	 *
 	 *  k:v
 	 *  k:v
 	 *  ...
@@ -320,7 +345,7 @@ public class WhoisMap {
 
 	/*
 	 *  == WHOIS RAWDATA TYPE B ==
-	 *  
+	 *
 	 *  k:v
 	 *  k:v
 	 *  contact:handle
@@ -392,7 +417,7 @@ public class WhoisMap {
 
 	/*
 	 *  == WHOIS RAWDATA TYPE C ==
-	 *  
+	 *
 	 *  k ...... v
 	 *  k ...... v
 	 *  k ...... v
@@ -414,7 +439,7 @@ public class WhoisMap {
 	/**
 	 * Sets the map's content indexing by the mapping key. And also, it is safe for giving a null or empty string value
 	 * which will do nothing to the current map. This method default not replace the value in map.
-	 * 
+	 *
 	 * @param whoisMap
 	 *            The given map.
 	 * @param key
@@ -429,7 +454,7 @@ public class WhoisMap {
 	/**
 	 * Sets the map's content indexing by the mapping key. And also, it is safe for giving a null or empty string value
 	 * which will do nothing to the current map.
-	 * 
+	 *
 	 * @param whoisMap
 	 *            The given map.
 	 * @param key
@@ -505,7 +530,7 @@ public class WhoisMap {
 
 	/**
 	 * Gets the map's content indexing by the mapping key.
-	 * 
+	 *
 	 * @param whoisMap
 	 *            The given map.
 	 * @param key
@@ -535,7 +560,7 @@ public class WhoisMap {
 
 	/**
 	 * Removes the whois map with the map key.
-	 * 
+	 *
 	 * @param whoisMap
 	 *            The whois map.
 	 * @param key

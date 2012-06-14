@@ -34,7 +34,7 @@
 		<SERVER><KEY>bi</KEY><URL>whois.nic.bi</URL></SERVER>
 		<SERVER><KEY>bz</KEY><URL>whois2.afilias-grs.net</URL></SERVER>
 		<SERVER><KEY>ca</KEY><URL>whois.cira.ca</URL></SERVER>
-		<SERVER><KEY>cc</KEY><URL>whois.nic.cc</URL></SERVER>
+		<!--<SERVER><KEY>cc</KEY><URL>whois.nic.cc</URL></SERVER>-->
 		<SERVER><KEY>cd</KEY><URL>whois.nic.cd</URL></SERVER>
 		<SERVER><KEY>ch</KEY><URL>whois.nic.ch</URL></SERVER>
 		<SERVER><KEY>ci</KEY><URL>whois.nic.ci</URL></SERVER>
@@ -52,6 +52,7 @@
 		<SERVER><KEY>fr</KEY><URL>whois.nic.fr</URL></SERVER>
 		<SERVER><KEY>gd</KEY><URL>whois.adamsnames.tc</URL></SERVER>
 		<SERVER><KEY>gl</KEY><URL>whois.nic.gl</URL></SERVER>
+        <SERVER><KEY>is</KEY><URL>whois.isnic.is</URL></SERVER>
 		<SERVER><KEY>jp</KEY><URL>whois.jprs.jp?{domain}/e</URL></SERVER>
 		<SERVER><KEY>kr</KEY><URL>whois.krnic.net</URL></SERVER>
 		<SERVER><KEY>ly</KEY><URL>whois.nic.ly</URL></SERVER>
@@ -212,7 +213,7 @@
 		<!--<SERVER><KEY>GoDaddy</KEY><URL>common</URL></SERVER>-->
 	</RegistrarList>
 	<RedirectList>
-		<SERVER><KEY>whois.wildwestdomains.com</KEY><URL>common</URL></SERVER>
+		<!--<SERVER><KEY>whois.wildwestdomains.com</KEY><URL>common</URL></SERVER>-->
 		<SERVER><KEY>whois.website.ws</KEY><URL>break</URL></SERVER>
 		<!--<SERVER><KEY>whois.godaddy.com</KEY><URL>common</URL></SERVER>-->
 		<!--<SERVER><KEY>who.godaddy.com</KEY><URL>common</URL></SERVER>-->

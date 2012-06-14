@@ -1,0 +1,68 @@
+domain:      1001games.fr
+status:      ACTIVE
+hold:        NO
+holder-c:    RVDR7-FRNIC
+admin-c:     JD6075-FRNIC
+tech-c:      JD6075-FRNIC
+zone-c:      NFC1-FRNIC
+nsl-id:      NSL1951-FRNIC
+registrar:   COMBELL GROUP NV
+anniversary: 28/09
+created:     17/01/2007
+last-update: 21/11/2011
+source:      FRNIC
+
+ns-list:     NSL1951-FRNIC
+nserver:     ns-auth-1.redhosting.nl
+nserver:     ns-auth-2.redhosting.nl
+nserver:     ns-auth-3.redhosting.nl
+source:      FRNIC
+
+registrar:   COMBELL GROUP NV
+type:        Isp Option 1
+address:     Skaldenstraat 121
+address:     B-9042 GENT
+country:     BE
+phone:       +32 9 218 79 79
+fax-no:      +32 9 218 79 78
+e-mail:      activation@combell.com
+website:     http://www.combell.com
+anonymous:   NO
+registered:  19/05/2005
+source:      FRNIC
+
+nic-hdl:     RVDR7-FRNIC
+type:        PERSON
+contact:     Rick Van De Rozenberg
+address:     Admeen BV
+address:     Marga Klompestraat 21
+address:     8091 WS Wezep
+country:     NL
+phone:       +31 880236300
+e-mail:      fr@domaincentral.info
+changed:     28/09/2011 nic@nic.fr
+anonymous:   NO
+obsoleted:   NO
+eligstatus:  ok
+source:      FRNIC
+
+nic-hdl:     JD6075-FRNIC
+type:        PERSON
+contact:     Jonas Dhaenens
+address:     Combell Group NV
+address:     Skaldenstraat 121
+address:     9042 Gent
+country:     BE
+phone:       +32 92187979
+e-mail:      activation@combell.com
+changed:     06/12/2011 nic@nic.fr
+anonymous:   NO
+obsoleted:   NO
+eligstatus:  ok
+eligsource:  REGISTRAR
+eligdate:    06/12/2011 10:02:24
+reachmedia:  email
+reachstatus: ok
+reachsource: REGISTRAR
+reachdate:   06/12/2011 10:02:24
+source:      FRNIC
