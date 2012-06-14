@@ -52,14 +52,12 @@ public class WhoisMapTest extends TestCase {
         WhoisMap whoisMap = new WhoisMap();
         List<String> rawData = WhoisEngineTest.getMockResponseForLevel1("1001games.fr");
         new WhoisEngine("1001games.fr").processSocketResponse(rawData);
-
         String blockHead = XMLHelper.getTranslateAttr( "BlockHead", "whois.nic.fr" );
         String contactHandle = XMLHelper.getTranslateAttr( "ContactHandle", "whois.nic.fr" );
         String[] blockHeads = Utility.isEmpty( blockHead ) ? null : blockHead.split( "," );
         String[] contactHandles = Utility.isEmpty( contactHandle ) ? null : contactHandle.split( "," );
         Map<String, String> contacts = XMLHelper.getTranslateMap( "Contacts", "whois.nic.fr" );
         Map output = whoisMap.parseB(rawData, contacts, blockHeads, contactHandles );
-
         assertNotNull(output);
         assertEquals("[COMBELL GROUP NV]", output.get("registrar").toString());
         assertEquals("17/01/2007", output.get("created"));
@@ -85,20 +83,67 @@ public class WhoisMapTest extends TestCase {
     }
 
     public void testParse_USING_TYPE_A_RESPONSE() throws Exception {
-        // TODO:
-        /*
-        for(Object key : output.keySet()){
-            System.out.println(key + " --- " + output.get(key));
-        }
-         */
+        WhoisEngine engine = new WhoisEngine("fullcontact.com", false);
+        List<String> rawData = WhoisEngineTest.getMockResponseForLevel2("fullcontact.com");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("whois.name.com");
+        Map infoMap = whoisMap.getMap();
+        assertTrue(infoMap.containsKey("rawdata"));
+        assertTrue(infoMap.containsKey("regyinfo"));
+        assertEquals(rawData, infoMap.get("rawdata"));
+        assertTrue((Boolean)whoisMap.get("regyinfo.hasrecord"));
+        assertEquals(2, ((Map)infoMap.get("regyinfo")).size());
+        assertEquals("2013-06-06 10:55:15", whoisMap.get("regrinfo.domain.expires"));
+        assertEquals("2000-06-06 10:55:15", whoisMap.get("regrinfo.domain.created"));
+        assertTrue(((List)whoisMap.get("regrinfo.domain.nserver")).contains("dns1.nettica.com"));
+        assertEquals("+1.3037369406", whoisMap.get("regrinfo.owner.phone"));
+        assertNotNull(whoisMap.get("regrinfo.owner.info"));
+        assertNotNull(whoisMap.get("regrinfo.admin.info"));
+        assertNotNull(whoisMap.get("regrinfo.tech.info"));
+        assertNotNull(whoisMap.get("regrinfo.bill.info"));
     }
 
     public void testParse_USING_TYPE_B_RESPONSE() throws Exception {
-        // TODO:
+        WhoisEngine engine = new WhoisEngine("1001games.fr", false);
+        List<String> rawData = WhoisEngineTest.getMockResponseForLevel1("1001games.fr");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("whois.nic.fr");
+        Map infoMap = whoisMap.getMap();
+        assertTrue(infoMap.containsKey("rawdata"));
+        assertTrue(infoMap.containsKey("regyinfo"));
+        assertEquals(rawData, infoMap.get("rawdata"));
+        assertTrue((Boolean)whoisMap.get("regyinfo.hasrecord"));
+        assertEquals(2, ((Map)infoMap.get("regyinfo")).size());
+        assertEquals("17/01/2007", whoisMap.get("regrinfo.domain.created"));
+        assertEquals("21/11/2011", whoisMap.get("regrinfo.domain.changed"));
+        assertTrue(((List)whoisMap.get("regrinfo.domain.nserver")).contains("ns-auth-3.redhosting.nl"));
+        assertNotNull(whoisMap.get("regrinfo.admin"));
+        assertNotNull(whoisMap.get("regrinfo.tech"));
+        assertNotNull(whoisMap.get("regrinfo.owner"));
     }
 
     public void testParse_USING_TYPE_C_RESPONSE() throws Exception {
-        // TODO:
+        WhoisEngine engine = new WhoisEngine("melbourneit.com", false);
+        List<String> rawData = WhoisEngineTest.getMockResponseForLevel2("melbourneit.com");
+        engine.processSocketResponse(rawData);
+        WhoisMap whoisMap = new WhoisMap();
+        whoisMap.set( "rawdata", rawData );
+        whoisMap.parse("whois.melbourneit.com");
+        Map infoMap = whoisMap.getMap();
+        assertTrue(infoMap.containsKey("rawdata"));
+        assertTrue(infoMap.containsKey("regyinfo"));
+        assertEquals(rawData, infoMap.get("rawdata"));
+        assertTrue((Boolean)whoisMap.get("regyinfo.hasrecord"));
+        assertEquals("1999-04-05", whoisMap.get("regrinfo.domain.created"));
+        assertEquals("2021-04-05", whoisMap.get("regrinfo.domain.expires"));
+        assertTrue(((List)whoisMap.get("regrinfo.domain.nserver")).contains("ns1.melbourneit.com.au"));
+        assertNotNull(whoisMap.get("regrinfo.admin"));
+        assertNotNull(whoisMap.get("regrinfo.tech"));
+        assertNotNull(whoisMap.get("regrinfo.owner"));
     }
 
 }

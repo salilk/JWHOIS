@@ -2473,7 +2473,7 @@
 			<Item><Key>Expiration Date</Key><Translate>regrinfo.domain.expires</Translate></Item>
 		</List>
 	</Translates>
-	<Translates id="whois.melbourneit.com" parser="C">
+	<Translates id="whois.melbourneit.com" parser="C" normalize="true">
 		<List>
 			<Item><Key>Domain Name</Key><Translate>regrinfo.domain.name</Translate></Item>
 			<Item><Key>Creation Date........</Key><Translate>regrinfo.domain.created</Translate></Item>
