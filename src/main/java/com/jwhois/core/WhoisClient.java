@@ -31,7 +31,8 @@ public class WhoisClient {
 	private static final String	DEFAULT_HOST	= "whois.internic.net";
 	private static final String	DEFAULT_IP_HOST	= "whois.arin.net";
 	private static final int	DEFAULT_PORT	= 43;
-	private static final int	DEFAULT_TIMEOUT	= 15 * 1000;
+	private int	DEFAULT_TIMEOUT	= 60 * 1000;
+    private int DEFAULT_CONNECT_TIMEOUT = 5*1000;
 
 	protected String			url;
 	protected String			ptlType;
@@ -61,6 +62,14 @@ public class WhoisClient {
 		pnEnd = null;
 		pnCatch = null;
 	}
+
+    protected void setDefaultTimeout(Integer timeoutMillis){
+        DEFAULT_TIMEOUT = timeoutMillis;
+    }
+
+    protected void setDefaultConnectTimeout(Integer timeoutMillis){
+        DEFAULT_CONNECT_TIMEOUT = timeoutMillis;
+    }
 
 	/**
 	 * look up WHOIS from domain
@@ -384,7 +393,7 @@ public class WhoisClient {
 				else {
 					sock = new Socket();
 				}
-				sock.connect( addr, 1000 );
+				sock.connect( addr, DEFAULT_CONNECT_TIMEOUT );
 			}
 			catch (Exception e) {
 				// Nothing to do.

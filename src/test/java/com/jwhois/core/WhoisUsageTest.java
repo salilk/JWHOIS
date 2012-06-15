@@ -20,7 +20,7 @@ public class WhoisUsageTest extends TestCase {
 
     public void testDomLookup() throws Exception {
 //        String[] names = new String[]{"fullcontact.com", "yahoo.com", "google.com", "facebook.com", "intelligrape.com", "findesire.com"};
-        String[] names = new String[]{"finddesire.com"};
+        /*String[] names = new String[]{"finddesire.com"};
         for (String name : names) {
             System.out.println("============ " + name + " ====================");
             WhoisEngine whoisEngine = new WhoisEngine(name);
@@ -31,7 +31,7 @@ public class WhoisUsageTest extends TestCase {
                     System.out.println("-------------------------");
                 }
             System.out.println("================================\n\n");
-        }
+        }*/
     }
 
 }
